@@ -1,0 +1,8 @@
+export("obliqueBART")
+export("obliqueBART_lp")
+export("probit_obliqueBART_lp")
+export("post_pred_summary")
+export("assess_performance")
+importFrom("Rcpp", "evalCpp")
+importFrom("stats", "quantile", "rnorm")
+useDynLib(obliqueBART)

@@ -1,0 +1,11 @@
+Package: obliqueBART
+Type: Package
+Title: Oblique BART Model
+Version: 1.2
+Date: 2023-12-25
+Author: Sameer K. Deshpande, Paul Nguyen, Ryan Yee
+Maintainer: Questions and comments to <sameer.deshpande@wisc.edu>
+Description: A more flexible implementation of BART that accommodates oblique (or linear combination) decision rules..
+License: GPL (>= 3)
+LinkingTo: Rcpp, RcppArmadillo
+Imports: Rcpp
