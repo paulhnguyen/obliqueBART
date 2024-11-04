@@ -37,4 +37,4 @@ job_id <- as.numeric(args[1])
 
 and instead manually set job_id (around line 8 of the script)
 
-After running the experiment for all rows, you can tabulate and graph the results by running the script analyze_results.R script.
+After running the experiment for all rows, you can tabulate and graph the results by running the analyze_results.R script.
