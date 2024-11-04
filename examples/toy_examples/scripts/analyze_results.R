@@ -1,10 +1,6 @@
-# Author: Ryan Yee
-# Date: August 13, 2024
-# Purpose: analyze results of toy examples
-# Details: 
-# Dependencies: dplyr, ggplot2
-
-dir = "../results2/"
+# insert results directories here
+dir = "../results3/"
+dir2 = "../results4/"
 
 library(tidyverse)
 library(ggplot2)
@@ -19,9 +15,11 @@ loadRData <- function(filename) {
 
 # gets names of all the files in dir
 files = stringr::str_c(dir, list.files(dir), sep = "")
+files2 = stringr::str_c(dir2, list.files(dir2), sep = "")
 
 # loads results
 results = lapply(files, loadRData) %>% bind_rows()
+results2 = lapply(files2, loadRData) %>% bind_rows()
 
 # check that all experiments ran successfully
 n_check = results %>%
@@ -32,6 +30,18 @@ n_check = results %>%
     values_from = n
   )
 
+tmp = rbind(results, results2)
+tmp %>%
+  # filter(model %in% c("obart", "obart7")) %>%
+  group_by(experiment, model, n_train, theta) %>%
+  summarize(
+    n = n(),
+    mean_rmse_test = mean(rmse_test)
+  ) %>%
+  ggplot(aes(x = theta, y = mean_rmse_test, col = model)) +
+  geom_line() +
+  facet_grid(cols = vars(experiment))
+
 
 ### results ###
 
@@ -39,7 +49,6 @@ n_check = results %>%
 
 # 1. compare aa and obart with different numbers of trees
 results %>%
-  # filter(model %in% c("obart", "aabart")) %>%
   mutate(
     fn_trees = as.factor(n_trees),
     label = paste0(model, n_trees)

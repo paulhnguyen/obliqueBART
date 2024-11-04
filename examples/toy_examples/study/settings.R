@@ -1,9 +1,3 @@
-# Author: Ryan Yee
-# Date: August 13, 2024
-# Purpose: toy example settings
-# Details: 
-# Dependencies: 
-
 # general factors
 n_train = 1000 #c(100, 1000, 10000)
 n_test = 1000
@@ -52,9 +46,8 @@ o_sin = expand.grid(
   theta = amp
 )
 
-# axis-aligned experiments
-a_rot = expand.grid(
-  model = "aabart",
+o7_rot = expand.grid(
+  model = "obart7",
   exp = "rot_axes",
   rep = r,
   n_train = n_train,
@@ -66,8 +59,8 @@ a_rot = expand.grid(
   theta = theta
 )
 
-a_sin = expand.grid(
-  model = "aabart",
+o7_sin = expand.grid(
+  model = "obart7",
   exp = "sin",
   rep = r,
   n_train = n_train,
@@ -79,32 +72,6 @@ a_sin = expand.grid(
   theta = amp
 )
 
-# random rotation experiments
-r_rot = expand.grid(
-  model = "rrbart",
-  exp = "rot_axes",
-  rep = r,
-  n_train = n_train,
-  n_test = n_test,
-  m = m,
-  p = p,
-  sigma = sigma,
-  delta = delta,
-  theta = theta
-)
-
-r_sin = expand.grid(
-  model = "rrbart",
-  exp = "sin",
-  rep = r,
-  n_train = n_train,
-  n_test = n_test,
-  m = m,
-  p = p,
-  sigma = sigma,
-  delta = delta,
-  theta = amp
-)
 
 # wbart experiments
 aw_rot = expand.grid(
@@ -160,4 +127,6 @@ rw_sin = expand.grid(
 )
 
 # settings
-settings = rbind(o_rot, o_sin, a_rot, a_sin, r_rot, r_sin, aw_rot, aw_sin, rw_rot, rw_sin)
+settings = rbind(o7_rot, o7_sin,
+                 aw_rot, aw_sin,
+                 rw_rot, rw_sin)

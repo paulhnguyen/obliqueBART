@@ -4,9 +4,9 @@
 # Details: 
 # Dependencies: dplyr, ryplot
 
-# base_dir = "../results/"
-# comp_dir = "../results2/"
-dir = "../results3/"
+base_dir = "../results4/"
+comp_dir = "../results3/"
+# dir = "../results4/"
 save_dir = "../figures/"
 
 library(tidyverse)
@@ -21,21 +21,21 @@ loadRData <- function(filename) {
 }
 
 # gets names of all the files in dir
-files = stringr::str_c(dir, list.files(dir), sep = "")
-# base_files = stringr::str_c(base_dir, list.files(base_dir), sep = "")
-# comp_files = stringr::str_c(comp_dir, list.files(comp_dir), sep = "")
+# files = stringr::str_c(dir, list.files(dir), sep = "")
+base_files = stringr::str_c(base_dir, list.files(base_dir), sep = "")
+comp_files = stringr::str_c(comp_dir, list.files(comp_dir), sep = "")
 
 # loads results
-results = lapply(files, loadRData) %>% bind_rows()
+# results = lapply(files, loadRData) %>% bind_rows()
 
-# base_results = lapply(base_files, loadRData) %>% 
-#   bind_rows() %>%
-#   filter(model == "obart")
-# 
-# comp_results = lapply(comp_files, loadRData) %>% bind_rows()
+base_results = lapply(base_files, loadRData) %>%
+  bind_rows() %>%
+  filter(model == "obart7")
 
-base_results = subset(results, model == "obart")
-comp_results = subset(results, model != "obart")
+comp_results = lapply(comp_files, loadRData) %>% bind_rows()
+
+# base_results = subset(results, model == "obart")
+# comp_results = subset(results, model != "obart")
 
 ### graph data ###
 base = base_results %>%

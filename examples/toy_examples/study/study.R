@@ -1,9 +1,3 @@
-# Author: Ryan Yee
-# Date: August 13, 2024
-# Purpose: toy examples for Oblique BART paper
-# Details: 
-# Dependencies: obliqueBART
-
 study = "toy"
 script_dir = "study/"
 
@@ -11,7 +5,7 @@ source(paste0(script_dir, "obliqueBART_wrapper.R"))
 source(paste0(script_dir, "wbart_wrapper.R"))
 
 ### simulation settings ###
-args = commandArgs(TRUE)
+# args = commandArgs(TRUE)
 job_id = as.numeric(args[1]) + 1
 source(paste0(script_dir, "settings.R"))
 model = as.character(settings$model[job_id])
@@ -31,15 +25,15 @@ source(paste0(script_dir, "generate_data.R"))
 
 ### fit model ###
 n_chains = 1
-if (model == "obart"){
+if (model == "obart7"){
   fit = obliqueBART_wrapper(
     Y_train = Y_train,
     X_cont_train = X_cont_train,
     X_cont_test = X_cont_test,
     M = n_trees,
-    prob_aa = 0.5,
-    adaptive_prob_aa_option = TRUE,
-    phi_option = 1,
+    prob_aa = 0.0,
+    adaptive_prob_aa_option = FALSE,
+    phi_option = 7,
     n_chains = n_chains
   )
 } else if (model == "aabart"){
