@@ -1,36 +1,29 @@
----
-title: "Regression Example: Abalone"
-date: "`r Sys.Date()`"
-output: rmarkdown::github_document
----
+Classification Example: Banknote
+================
+2024-11-04
 
-```{r, include = F}
-library(tidyverse)
-library(obliqueBART)
-library(MLmetrics)
-```
 ## Introduction
 
-This document details the procedure to run the oblique BART and axis-aligned BART on a regression task.
+This document details the procedure to run the oblique BART and
+axis-aligned BART on a regression task.
 
 ## Settings
 
-Below, we load the *abalone* dataset. 
+Below, we load the *banknote authentication* dataset.
 
-```{r}
-data = read.csv("abalone.data", header = FALSE)
+``` r
+data = read.table("data_banknote_authentication.txt", sep=",")
 
-### process data ###
-
+# process data -----------------------------------------
 # remove rows with missing data
 data = na.omit(data)
 
-# identify the response
-Y = data[, 9]
-
 # split data into continuous and categorical data types
-X_cont = data[, c(2:8)]
-X_cat = data[, c(1)]
+Y = ifelse(data[,5] == 1, 1, 0)
+X_cont = data[, c(1:4)] 
+X_cont <- sapply( X_cont, as.numeric )
+X_cat =  matrix(0) # no categorical variables
+Y <- as.integer(Y)
 
 # scale continuous variables
 my_scale <- function(x) return( scales::rescale(x, to = c(-.99, .99), from = range(x)) )
@@ -63,9 +56,13 @@ X_cont = data.matrix(X_cont)
 X_cat = data.matrix(X_cat)
 ```
 
-We have loaded the data, scaled the predictors, and created 20 sets of training and testing partitions. Let us continue with just one partition.
+We have loaded the data, scaled the predictors, and created 20 sets of
+training and testing partitions. Let us continue with the first
+partition. Note that we use the function *probit_obliqueBART_lp* for
+classification, rathter than *obliqueBART_lp*, and that $Y$ is converted
+to the integer class.
 
-```{r}
+``` r
 Y_train = Y[-test_split_list[[1]]]
 X_cont_train = X_cont[-test_split_list[[1]], ]
 
@@ -93,10 +90,10 @@ if (!is.null(cat_level_list)){
 }
 
 
-
+# note we use probit_obliqueBART_lp here, instead of obliqueBART_lp
 # fit obliqueBART on training data
-fit <- obliqueBART::obliqueBART_lp(
-        Y_train = Y_train,
+fit <- obliqueBART::probit_obliqueBART_lp(
+        Y_train = as.integer(Y_train),
         X_cont_train = X_cont_train,
         X_cat_train = X_cat_train,
         cat_levels_list = cat_level_list,
@@ -104,19 +101,36 @@ fit <- obliqueBART::obliqueBART_lp(
         X_cat_test = X_cat_test,
         phi_option = 7,
       )
-
-# report results
-rmse_train = MLmetrics::RMSE(Y_train, fit$yhat.train.mean)
-rmse_train
-rmse_test = MLmetrics::RMSE(Y_test, fit$yhat.test.mean)
-rmse_test
-
-predictions_df <- tibble(true_y = Y_test,
-                         pred_y = fit$yhat.test.mean)
-ggplot(predictions_df, mapping = aes(x = true_y,
-                                     y = pred_y)) +
-  geom_point() + 
-  geom_abline(intercept = 0, slope = 1, color = "tomato") +
-  theme_bw()
 ```
 
+    ## n_train = 1029 n_test = 343 p_cont = 4  p_cat = 0
+    ##   MCMC Iteration: 0 of 2000; Warmup
+    ##   MCMC Iteration: 200 of 2000; Warmup
+    ##   MCMC Iteration: 400 of 2000; Warmup
+    ##   MCMC Iteration: 600 of 2000; Warmup
+    ##   MCMC Iteration: 800 of 2000; Warmup
+    ##   MCMC Iteration: 1000 of 2000; Sampling
+    ##   MCMC Iteration: 1200 of 2000; Sampling
+    ##   MCMC Iteration: 1400 of 2000; Sampling
+    ##   MCMC Iteration: 1600 of 2000; Sampling
+    ##   MCMC Iteration: 1800 of 2000; Sampling
+
+``` r
+phat_train = fit$prob.train.mean
+phat_test = fit$prob.test.mean
+
+predictions_df <- tibble(true_y = Y_test,
+                         pred_y = phat_test >= .5)
+
+train_accuracy <- mean(Y_train == (phat_train >= .5))
+train_accuracy
+```
+
+    ## [1] 0.9951409
+
+``` r
+test_accuracy <- mean(Y_test == (phat_test >= .5))
+test_accuracy
+```
+
+    ## [1] 0.9854227
