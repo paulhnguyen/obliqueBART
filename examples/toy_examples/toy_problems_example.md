@@ -26,13 +26,14 @@ head(settings)
     ## 6 obart7 rot_axes   6    1000   1000 200 0     1     4     0
 
 Each row in the settings dataframe represents the parameters of a single
-run of the experiments. There are 3 different models: “obart7”, which is
-the default implementation of obliqueBART, “awbart”, the standard
-axis-aligned BART, and “rwbart”, which is axis-aligned BART with the
-rotated features. The dataframe also contains the experiment type, which
-is represented by the variable “exp”. The two experiments are described
-in section XXX of XXX. “p” denotes the number of random rotations used
-in “rwbart”, and it takes values from $\{1,4,16,50,100,200\}$.
+run of the experiments. There are 3 different models. The first is
+*obart7*, which is the default implementation of obliqueBART. We compare
+obliqueBART with *awbart*, the standard implementation of axis-aligned
+BART, and *rwbart*, which is axis-aligned BART with the rotated
+features. The dataframe also contains the experiment type, which is
+represented by the variable “exp”. The two experiments are the sin wave
+and rotated axes experiments, described in section XXX of XXX. Finally,
+“p” denotes the number of random rotations used in *rwbart*.
 
 The script study.R takes as input a row index (job_id) and runs the
 corresponding method on a training-testing split for the corresponding
@@ -48,5 +49,5 @@ job_id <- as.numeric(args[1])
 
 and instead manually set job_id (around line 8 of the script)
 
-After running the experiment for all rows, you can tabulate the results
-by running the script analyze_results.R script.
+After running the experiment for all rows, you can tabulate and graph
+the results by running the script analyze_results.R script.
