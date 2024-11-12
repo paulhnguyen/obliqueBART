@@ -12,7 +12,7 @@ Drawing a continuous decision rule involves (i) drawing a random vector $\phi;$ 
 We specify a hierarchical spike-and-slab prior for $\phi,$ which encourages sparsity and also allows the number of non-zero entries of $\phi$ to vary adaptively with the data.
 Formally, we introduce a parameter $\theta \in [0,1]$ that controls the overall sparsity of $\phi.$
 
-Conditionally on $\theta,$ we draw $p$ binary indicators $\gamma_{1}, \ldots, \gamma_{p} \vert \theta \overset{i.i.d.}{\sim}$ Bernoulli($\theta$); (ii) for each $j = 1, \ldots, p_{cont},$ we draw $\phi_{j} \sim$ Normal $(0,1)$ if $\gamma_{j} = 1$ and $\phi_{j} = 0$ otherwise; and (iii) finally, we re-scale $\phi$ to have unit norm. 
+Conditionally on $\theta,$ we draw $p$ binary indicators $\gamma_i | \theta \overset{i.i.d.}{\sim}$ Bernoulli($\theta$); (ii) for each $j = 1, \ldots, p_{cont},$ we draw $\phi_{j} \sim$ Normal $(0,1)$ if $\gamma_{j} = 1$ and $\phi_{j} = 0$ otherwise; and (iii) finally, we re-scale $\phi$ to have unit norm. 
 By specifying a further prior on $\theta,$ we allow oblique BART to learn an appropriate level of sparsity of $\phi$ from the data. 
 For simplicity, we specify a conjugate ${\textrm{Beta}}({a_{\theta}},{b_{\theta}})$ prior with fixed $a_{\theta}, b_{\theta} > 0.$
 
