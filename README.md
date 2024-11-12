@@ -30,6 +30,6 @@ Alternatively, you can install using `devtools::install_github`:
 devtools::install_github(repo = "paulhnguyen/obliqueBART", subdir = "obliqueBART")
 ```
 
-The `examples` subdirectory contains some case studies showing how to use obliqueBART with regression data (abalone), classification data (banknote), toy examples, and the benchmark datasets. and comparing the run-time to the **BART** package, as well as other tree ensembles from **randomForest**, **ranger**, and **XGboost**. 
+The `examples` subdirectory contains some case studies showing how to use obliqueBART with regression data (abalone), classification data (banknote), toy examples, and the benchmark datasets.
 
 
