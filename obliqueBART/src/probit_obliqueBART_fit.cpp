@@ -120,7 +120,11 @@ Rcpp::List probit_obliqueBART_fit_lp(Rcpp::NumericVector Y_train,
   int index = -1;
 
   // spike slab stuff
-  double spike_slab_theta = gen.beta(1, di_train.p_cont - 1);
+  double spike_slab_theta = gen.beta(1*M, (di_train.p_cont - 1)*M);
+  if ((a_theta != 0) | (b_theta == 0))
+  {
+  spike_slab_theta = gen.beta(a_theta, b_theta);
+  }
   std::pair<int, int> entry_counts(0,0);
   
   tree_prior_info tree_pi;
@@ -336,7 +340,11 @@ Rcpp::List probit_obliqueBART_fit_lp(Rcpp::NumericVector Y_train,
     obl_count_samples(iter) = *tree_pi.obl_count;
 
     // update spike and slab theta based on entry counts (entry counts get updated in update_tree_lp)
-    tree_pi.spike_slab_theta = gen.beta(1 + tree_pi.entry_counts->first, di_train.p_cont - 1 + tree_pi.entry_counts->second);
+    tree_pi.spike_slab_theta = gen.beta((1*M) + tree_pi.entry_counts->first, ((di_train.p_cont - 1)*M) + tree_pi.entry_counts->second);
+    if ((a_theta != 0)| (b_theta!=0))
+    {
+      tree_pi.spike_slab_theta = gen.beta(a_theta + tree_pi.entry_counts->first, b_theta + tree_pi.entry_counts->second);
+    }
   
     if (phi_option == 2) // if doing adaptive splits
     {
@@ -387,6 +395,7 @@ Rcpp::List probit_obliqueBART_fit_lp(Rcpp::NumericVector Y_train,
       }
     } // closes if that checks whether we should save anything in this iteration
   } // closes the main MCMC for loop
+
 
   fit_train_mean /= ( (double) nd);
   if(n_test > 0) fit_test_mean /= ( (double) nd);
