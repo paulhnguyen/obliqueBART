@@ -6,13 +6,9 @@
 
 # model index
 m = c(
-  "wbart",
-  "axis-aligned",
-  "obart1.5a", "obart1.5a_oh", 
   "xgboost",
   "extra_trees",
-  "rand_forest",
-  "flexBART"
+  "rand_forest"
 )
 
 # dataset

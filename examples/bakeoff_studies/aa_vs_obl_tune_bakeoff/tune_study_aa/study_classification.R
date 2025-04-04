@@ -8,15 +8,13 @@ library(dplyr)
 study = "bakeoff"
 data_dir = "data/"
 # data_dir = "../../benchmark_datasets/classification/data/"
-script_dir = "study/"
+script_dir = "tune_study_aa/"
 
-source(paste0(script_dir, "probit_oblique_BART_wrapper.R"))
-source(paste0(script_dir, "pbart_wrapper.R"))
-source(paste0(script_dir, "probit_oblique_BART_oh_wrapper.R"))
+
 source(paste0(script_dir, "extra_trees_class_wrapper.R"))
 source(paste0(script_dir, "xgboost_class_wrapper.R"))
 source(paste0(script_dir, "randForest_class_wrapper.R"))
-source(paste0(script_dir, "probit_flexBART_wrapper.R"))
+
 
 ### simulation settings ###
 args = commandArgs(TRUE)
@@ -47,7 +45,7 @@ if (!is.null(cat_level_list)){
   } else if (nrow(X_cat) > 1) {
     X_cat_train = matrix(X_cat[-test_split_list[[split]], ], ncol = 1)
     X_cat_test = matrix(X_cat[test_split_list[[split]], ], ncol = 1)
-  } else if (nrow(X_cat == 1)){
+  } else if (nrow(X_cat) == 1){
     X_cat_train = matrix(0L, nrow = 1, ncol = 1)
     X_cat_test = matrix(0L, nrow = 1, ncol = 1)
   }
@@ -72,62 +70,7 @@ if (model %in% c("pbart", "rand_forest", "extra_trees")){
 
 ### fit model ###
 n_chains = 1
-if (model == "axis-aligned"){
-  fit = probit_oblique_BART_wrapper(
-    Y_train = Y_train,
-    X_cont_train = X_cont_train,
-    X_cont_test = X_cont_test,
-    X_cat_train = X_cat_train,
-    X_cat_test = X_cat_test,
-    cat_levels_list = cat_level_list,
-    prob_aa = 1,
-    phi_option = 1,
-    n_chains = n_chains
-  )
-}  else if (model == "pbart"){
-  fit = pbart_wrapper(
-    Y_train = Y_train, 
-    X_train_df = X_train_df, 
-    X_test_df = X_test_df, 
-    n_chains = n_chains
-  )
-} else if (model == "flexBART") {
-  fit = probit_flexBART_wrapper(
-    Y_train = Y_train,
-    X_cont_train = X_cont_train,
-    X_cat_train = X_cat_train,
-    cat_levels_list = cat_level_list,
-    X_cont_test = X_cont_test,
-    X_cat_test = X_cat_test,
-    n_chains = n_chains
-  )
-} else if (model == "obart1.5a"){
-  fit = probit_oblique_BART_wrapper(
-    Y_train = Y_train,
-    X_cont_train = X_cont_train,
-    X_cont_test = X_cont_test,
-    X_cat_train = X_cat_train,
-    X_cat_test = X_cat_test,
-    cat_levels_list = cat_level_list,
-    prob_aa = 0.5,
-    adaptive_prob_aa_option = T,
-    centering = T,
-    phi_option = 1,
-    n_chains = n_chains
-  )
-} else if (model == "obart1.5a_oh"){
-  fit = probit_oblique_BART_oh_wrapper(
-    Y_train = Y_train,
-    X_cont_train = X_cont_train,
-    X_cont_test = X_cont_test,
-    X_cat = X_cat,
-    prob_aa = 0.5,
-    adaptive_prob_aa_option = T,
-    centering = T,
-    phi_option = 1,
-    n_chains = n_chains
-  )
-} else if (model == "xgboost"){
+if (model == "xgboost"){
   fit = xgb_class_wrapper( Y_train = Y_train, 
                          X_cont_train = X_cont_train, 
                          X_cont_test = X_cont_test,
