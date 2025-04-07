@@ -1,6 +1,6 @@
-Toy Problems Example
+Regression Example: Abalone
 ================
-2024-11-04
+2025-04-07
 
 ## Introduction
 
@@ -9,7 +9,8 @@ axis-aligned BART on a regression task.
 
 ## Settings
 
-Below, we load the *abalone* dataset.
+Below, we load the
+*abalone*\[<https://archive.ics.uci.edu/dataset/1/abalone>\] dataset.
 
 ``` r
 data = read.csv("abalone.data", header = FALSE)
@@ -120,14 +121,14 @@ rmse_train = MLmetrics::RMSE(Y_train, fit$yhat.train.mean)
 rmse_train
 ```
 
-    ## [1] 1.941306
+    ## [1] 1.945311
 
 ``` r
 rmse_test = MLmetrics::RMSE(Y_test, fit$yhat.test.mean)
 rmse_test
 ```
 
-    ## [1] 2.111341
+    ## [1] 2.152072
 
 ``` r
 predictions_df <- tibble(true_y = Y_test,

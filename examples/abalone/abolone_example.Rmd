@@ -15,7 +15,7 @@ This document details the procedure to run the oblique BART and axis-aligned BAR
 
 ## Settings
 
-Below, we load the *abalone* dataset. 
+Below, we load the [*abalone*](https://archive.ics.uci.edu/dataset/1/abalone) dataset. 
 
 ```{r}
 data = read.csv("abalone.data", header = FALSE)
@@ -83,7 +83,7 @@ if (!is.null(cat_level_list)){
   } else if (nrow(X_cat) > 1) {
     X_cat_train = matrix(X_cat[-test_split_list[[1]], ], ncol = 1)
     X_cat_test = matrix(X_cat[test_split_list[[1]], ], ncol = 1)
-  } else if (nrow(X_cat == 1)){
+  } else if (nrow(X_cat) == 1){
     X_cat_train = matrix(0L, nrow = 1, ncol = 1)
     X_cat_test = matrix(0L, nrow = 1, ncol = 1)
   }
@@ -102,7 +102,7 @@ fit <- obliqueBART::obliqueBART_lp(
         cat_levels_list = cat_level_list,
         X_cont_test = X_cont_test,
         X_cat_test = X_cat_test,
-        phi_option = 7,
+        prob_aa = 0
       )
 
 # report results

@@ -1,6 +1,6 @@
 Classification Example: Banknote
 ================
-2024-11-04
+2025-04-07
 
 ## Introduction
 
@@ -80,7 +80,7 @@ if (!is.null(cat_level_list)){
   } else if (nrow(X_cat) > 1) {
     X_cat_train = matrix(X_cat[-test_split_list[[1]], ], ncol = 1)
     X_cat_test = matrix(X_cat[test_split_list[[1]], ], ncol = 1)
-  } else if (nrow(X_cat == 1)){
+  } else if (nrow(X_cat) == 1){
     X_cat_train = matrix(0L, nrow = 1, ncol = 1)
     X_cat_test = matrix(0L, nrow = 1, ncol = 1)
   }
@@ -99,7 +99,7 @@ fit <- obliqueBART::probit_obliqueBART_lp(
         cat_levels_list = cat_level_list,
         X_cont_test = X_cont_test,
         X_cat_test = X_cat_test,
-        phi_option = 7,
+        prob_aa = 0
       )
 ```
 
@@ -126,11 +126,11 @@ train_accuracy <- mean(Y_train == (phat_train >= .5))
 train_accuracy
 ```
 
-    ## [1] 0.9951409
+    ## [1] 0.9961127
 
 ``` r
 test_accuracy <- mean(Y_test == (phat_test >= .5))
 test_accuracy
 ```
 
-    ## [1] 0.9854227
+    ## [1] 0.9941691
