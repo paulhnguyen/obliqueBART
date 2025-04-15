@@ -1,4 +1,4 @@
-Repositiory for benchmarking datasets used for comparing BART implementations.
+Repository for benchmarking datasets used for comparing BART implementations.
 Each `.RData` file contains:
 * `Y`: vector of outcomes
 * `X_cont`: matrix of continuous covariates
