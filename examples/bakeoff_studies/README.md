@@ -2,9 +2,11 @@ This directory contains the data and code used to perform the analysis of the be
 
 Each folder in bakeoff_studies contains settings files that tabulate every combination of dataset and simulation number. The study____.R scripts take as input a block of rows of settings and the corresponding method/data/split combination.
 
-To run the experiment for rows start_ix to end_ix locally, you should comment out the lines
+To run the experiments locally, you should comment out the lines
 
+```
 args <- commandArgs(TRUE)
 job_id <- as.numeric(args[1])
+```
 
-and change the range of the for loop from job_id in block_starts[block_id]:block_ends[block_id]) to job_id in start_ix:end_ix
+You can manually set args from 1:(nrow(settings)-1) to run any method/data/split combination manually.
