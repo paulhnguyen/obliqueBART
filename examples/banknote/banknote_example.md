@@ -9,7 +9,9 @@ axis-aligned BART on a regression task.
 
 ## Settings
 
-Below, we load the *banknote authentication* dataset.
+Below, we load the [*banknote
+authentication*](https://archive.ics.uci.edu/dataset/267/banknote+authentication)
+dataset.
 
 ``` r
 data = read.table("data_banknote_authentication.txt", sep=",")
@@ -126,11 +128,11 @@ train_accuracy <- mean(Y_train == (phat_train >= .5))
 train_accuracy
 ```
 
-    ## [1] 0.9961127
+    ## [1] 0.9970845
 
 ``` r
 test_accuracy <- mean(Y_test == (phat_test >= .5))
 test_accuracy
 ```
 
-    ## [1] 0.9941691
+    ## [1] 0.9970845

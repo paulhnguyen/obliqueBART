@@ -7,7 +7,6 @@ library(dplyr)
 
 study = "bakeoff"
 data_dir = "data/"
-# data_dir = "../../benchmark_datasets/regression/data/"
 script_dir = "tune_study_obl/"
 
 source(paste0(script_dir, "odrf_wrapper_reg.R"))

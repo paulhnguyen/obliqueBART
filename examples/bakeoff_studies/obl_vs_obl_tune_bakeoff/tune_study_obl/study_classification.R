@@ -2,12 +2,11 @@
 # Date: February 17, 2024
 # Purpose: run real dataset on various hyperparameters
 # Details: 
-# Dependencies: aorsf, ODRF, rerf, RPEnsemble, rotationForest
+# Dependencies: aorsf, ODRF, RPEnsemble, rotationForest
 library(dplyr)
 
 study = "bakeoff"
 data_dir = "data/"
-# data_dir = "../../benchmark_datasets/classification/data/"
 script_dir = "tune_study_obl/"
 
 source(paste0(script_dir, "odrf_wrapper_class.R"))

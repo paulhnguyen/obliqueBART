@@ -15,7 +15,7 @@ This document details the procedure to run the oblique BART and axis-aligned BAR
 
 ## Settings
 
-Below, we load the *banknote authentication* dataset. 
+Below, we load the [*banknote authentication*](https://archive.ics.uci.edu/dataset/267/banknote+authentication) dataset. 
 
 ```{r}
 data = read.table("data_banknote_authentication.txt", sep=",")
