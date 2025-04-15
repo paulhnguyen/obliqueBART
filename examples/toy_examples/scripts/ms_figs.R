@@ -103,6 +103,7 @@ ryplot::init_scale(leg_pos = "none", main = "Rotated axes partition", xlab = exp
 # polygon(x = c(t, rev(t)), y = c(l$obart, rev(u$obart)), border = NA, col = scales::alpha(col_pal[3], 0.25))
 lines(x = t, y = rep(1, times = length(t)), col = "black", lty = 2)
 for (i in 1:length(m)){
+  polygon(x = c(t, rev(t)), y = c(l[[i]], rev(u[[i]])), border = NA, col = scales::alpha(col_pal[i], 0.25))
   lines(x = t, y = m[[i]], col = col_pal[i], lwd = 1.5)
   points(x = t, y = m[[i]], col = col_pal[i], pch = i)
 }
@@ -144,6 +145,7 @@ par(mar = c(c(3, 3, 2, 4)), mgp = c(1.8, 0.5, 0))
 ryplot::init_scale(leg_pos = "none", main = "Sinusoidal partition", xlab = expression(paste(alpha)), ylab = "RMSE ratio (test)", xlim = c(0, 1), ylim = c(0.95, 2.8), auto_mar = FALSE)
 lines(x = t, y = rep(1, times = length(t)), col = "black", lty = 2)
 for (i in 1:length(m)){
+  polygon(x = c(t, rev(t)), y = c(l[[i]], rev(u[[i]])), border = NA, col = scales::alpha(col_pal[i], 0.25))
   lines(x = t, y = m[[i]], col = col_pal[i], lwd = 1.5)
   points(x = t, y = m[[i]], col = col_pal[i], pch = i)
 }
