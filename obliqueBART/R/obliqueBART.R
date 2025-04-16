@@ -1,3 +1,5 @@
+# we use obliqueBART_lp.R to fit obliqueBART. We keep this file, but source obliqueBART_lp to avoid confusion. see line 62.
+
 obliqueBART <- function(Y_train,
                         X_cont_train = matrix(0, nrow = 1, ncol = 1),
                         X_cat_train = matrix(0, nrow = 1, ncol = 1),
@@ -6,7 +8,7 @@ obliqueBART <- function(Y_train,
                         unif_cuts = rep(TRUE, times = ncol(X_cont_train)),
                         cutpoints_list = NULL,
                         cat_levels_list = NULL,
-                        prob_aa = 0.5, 
+                        prob_aa = 0, 
                         phi_option = 1,
                         x0_option = 1,
                         a_theta = 1,
@@ -57,7 +59,7 @@ obliqueBART <- function(Y_train,
   ####################
 
   
-  fit <- .oblique_BARTfit(Y_train = std_Y_train,
+  fit <- .oblique_BARTfit_lp(Y_train = std_Y_train,
                           tX_cont_train = t(X_cont_train),
                           tX_cat_train = t(X_cat_train),
                           tX_cont_test = t(X_cont_test),
