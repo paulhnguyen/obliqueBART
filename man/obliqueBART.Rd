@@ -100,7 +100,7 @@ y <- mu + sigma * rnorm(n, mean = 0, sd = 1)
 # Token run that ensures installation was successful
 set.seed(99)
 flexBART_fit <- obliqueBART(Y_train = y, X_cont_train = X_cont,nd = 5, burn = 5)
-\dontrun{
+\donttest{
 X_cont_test <- matrix(runif(n_test*p_cont, min = -1, max = 1), nrow = n_test, ncol = p_cont)
 mu_test <- friedman_function(X_cont_test)
 

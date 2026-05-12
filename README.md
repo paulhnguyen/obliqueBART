@@ -21,6 +21,8 @@ Once we draw $\phi,$ we draw $c$ uniformly from the range of valid values of $\p
 This range is determined by the continuous decision rules used at the ancestors of $\texttt{nx}$ in the tree and can be computed by solving two linear programs maximizing and minimizing $\phi^{\top}x_{cont}$ over the linear polytope corresponding to $\texttt{nx}.$
 
 
+
+<!--
 ## Installation and basic usage
 
 The package source files are contained in the sub-directory obliqueBART.
@@ -32,4 +34,4 @@ devtools::install_github(repo = "paulhnguyen/obliqueBART", subdir = "obliqueBART
 
 The `examples` subdirectory contains some case studies showing how to use obliqueBART with regression data (abalone), classification data (banknote), toy examples, and the benchmark datasets.
 
-
+-->
